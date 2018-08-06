@@ -1,0 +1,16 @@
+.Active{
+  color: black;
+  background-color: white;
+}
+.menu-sidenav {
+  display: none;
+}
+
+@media (max-width: 799px) {
+  .menu-sidenav {
+    display: block;
+  }
+  .hide-in-mobile {
+    display: none;
+  }
+}

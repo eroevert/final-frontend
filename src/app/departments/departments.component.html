@@ -1,0 +1,55 @@
+<div fullscreen>
+  <ssi-header menuActive="structure"></ssi-header>
+  <div class="container"
+       fxLayout="column"
+       fxLayoutGap="10px">
+
+    <div fxFlex>
+      <h1>Departamentos de la empresa</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxFlex>
+      <button id="btnCreateDepartment" mat-raised-button routerLink="/departments/create" color="primary">
+        <span class="fa fa-chevron-right fa-lg"></span>
+        Crear nuevo departamento
+      </button>
+      <button id="btnReportDepartment" mat-raised-button routerLink="/departments/report" color="primary">
+        <span class="fa fa-pie-chart fa-lg"></span> Reporte</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container"
+         fxLayout="row"
+         fxLayout.sm="column"
+         fxLayout.xs="column"
+         fxLayoutAlign.gt-md="space-around center"
+         fxLayoutGap="10px">
+      <div fxFlex="60">
+        <mat-table #table [dataSource]="departments">
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Nombre departamento</mat-header-cell>
+            <mat-cell *matCellDef="let department">{{department.name}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let department">
+              <a mat-raised-button (click)="onSelect(department)" color="primary"><span class="fa fa-eye fa-lg"></span> Ver</a> |
+              <a mat-raised-button routerLink="/departments/update/{{department.id}}"><span class="fa fa-edit fa-lg"></span> Editar</a> |
+              <a mat-raised-button (click)="onDelete(department)" color="warn"><span class="fa fa-trash fa-lg"></span> Eliminar</a>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+
+      <div fxFlex="40">
+        <ssi-deparment-detail name="pnlDetail" [departmentDetail]="selectedDepartment"></ssi-deparment-detail>
+        <ssi-deparment-delete name="pnlDelete" [departmentDelete]="deleteDepartment" (onDelete)="doSomething($event)"></ssi-deparment-delete>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <ssi-footer></ssi-footer>
+</div>

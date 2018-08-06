@@ -1,0 +1,56 @@
+<ssi-header menuActive="programsso"></ssi-header>
+<div class="container"
+     fxLayoutGap="10px">
+  <div fxFlex="100%">
+    <h1 id="titleFormCreate" *ngIf="!isUpdate">Crear Recurso</h1>
+    <h1 class="titleForm" *ngIf="isUpdate">Editar Recurso</h1>
+  </div>
+  <div fxFlex>
+    <button mat-raised-button routerLink="/resources" color="accent" id="btnBack">Atras</button>
+    <button mat-raised-button routerLink="/resources/report" color="accent" id="btnReportResource">Reportes</button>
+  </div>
+  <mat-card>
+    <form [formGroup]="resourceForm" (ngSubmit)="onSubmit()" id="form">
+      <mat-card-content>
+
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px">
+
+
+          <mat-input-container fxFlex="30%"
+                               dividerColor="{{(resourceForm.get('resourceCost').hasError('required') && resourceForm.get('resourceCost').touched) ? 'warn' : 'primary'}}">
+            <input class="txtCost" matInput formControlName="resourceCost"  placeholder="Costo" type="number" required>
+            <mat-hint>
+                <span id="msgCost" [hidden]="!(resourceForm.get('resourceCost').hasError('required') && resourceForm.get('resourceCost').touched)">
+                  Costo es requerido</span>
+            </mat-hint>
+          </mat-input-container>
+
+        </div>
+
+
+        <div fxFlex="100%" fxLayout="row">
+
+
+
+          <mat-input-container fxFlex="30%"
+                               dividerColor="{{(resourceForm.get('resourceDetail').hasError('required') && resourceForm.get('resourceDetail').touched) ? 'warn' : 'primary'}}">
+            <input class="txtDetail" matInput formControlName="resourceDetail"  placeholder="Detalle" type="text" required>
+            <mat-hint>
+                <span id="msgDetail" [hidden]="!(resourceForm.get('resourceDetail').hasError('required') && resourceForm.get('resourceDetail').touched)">
+                  Detalle es requerido</span>
+            </mat-hint>
+          </mat-input-container>
+
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button routerLink="/resources" type="button" id="btnCancel">Cancelar</button>
+        <button class="mat-background-primary btnGuardar" mat-raised-button [disabled]="resourceForm.invalid"
+                type="submit" color="primary">Guardar</button>
+      </mat-card-actions>
+
+
+    </form>
+  </mat-card>
+</div>
+<ssi-footer></ssi-footer>

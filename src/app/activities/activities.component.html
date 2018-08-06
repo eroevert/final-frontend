@@ -1,0 +1,55 @@
+<ssi-header menuActive="programsso"></ssi-header>
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+  <div fxFlex>
+    <h1>Actividades</h1>
+  </div>
+  <div fxFlex fxLayout="row">
+    <button mat-button routerLink="/activities/create">Agregar nueva actividad</button>
+    <button mat-button routerLink="/activities/report">Reportes</button>
+  </div>
+  <div fxFlex>
+    <div>
+      <mat-card>
+        <mat-card-content>
+          <mat-table #table [dataSource]="activities">
+
+
+            <ng-container matColumnDef="activityDetail">
+              <mat-header-cell *matHeaderCellDef>Detalle</mat-header-cell>
+              <mat-cell *matCellDef="let activity">{{activity.activityDetail}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="activityGoal">
+              <mat-header-cell *matHeaderCellDef>Meta de la actividad</mat-header-cell>
+              <mat-cell *matCellDef="let activity">{{activity.activityGoal}}</mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="activityType">
+              <mat-header-cell *matHeaderCellDef>Tipo de Actividad</mat-header-cell>
+              <mat-cell *matCellDef="let activity">{{activity.activityType}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+              <mat-header-cell *matHeaderCellDef> Accion </mat-header-cell>
+              <mat-cell *matCellDef="let activity">
+                <button mat-raised-button routerLink="/activities/update/{{activity.id}}" color="primary">
+                  Editar
+                </button>
+                <button mat-raised-button (click)="deleteActivity(activity)" color="warn">
+                  Eliminar
+                </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<ssi-footer></ssi-footer>

@@ -1,0 +1,85 @@
+<ssi-header menuActive="personal"></ssi-header>
+<div class="container"
+     fxLayoutGap="10px">
+    <div fxFlex="100%">
+      <h1><i class="material-icons">perm_data_setting</i>Asignacion de Equipo al Personal</h1>
+    </div>
+  <hr>
+  <mat-card>
+    <mat-card-content>
+      <h1><i class="material-icons">perm_identity</i>Datos del Personal</h1>
+      <hr>
+      <form #f="ngForm" (ngSubmit)="onSubmit()" id="form">
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px">
+
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Personal" [matAutocomplete]="auto" name="personal" #personal="ngModel" [(ngModel)]="currentPersonal" (ngModelChange)="doFilterPersonal()">
+            </mat-form-field>
+
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let personal of personals | async" [value]="personal.name">
+                <img style="vertical-align:middle;" aria-hidden src="../assets/images/daniel.png" height="25" />
+                <span>{{ personal.name }}</span> |
+                <small>Apellido: {{personal.lastName}}</small>
+              </mat-option>
+            </mat-autocomplete>
+
+          <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Apellido">
+          </mat-form-field>
+          <mat-form-field fxFlex="30%">
+            <input matInput placeholder="email">
+          </mat-form-field>
+        </div>
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field fxFlex="30%">
+            <input matInput placeholder="Area">
+          </mat-form-field>
+
+        </div>
+      </form>
+      <h1><i class="material-icons">settings_input_hdmi</i>List de equipos</h1>
+      <hr>
+      <mat-form-field>
+        <input matInput type="text" (keypress)="doFilter($event.target.value)" placeholder="Buscar Equipo">
+      </mat-form-field>
+      <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px">
+
+        <mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="seleccionar">
+            <mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name" >
+            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          <!--<mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>-->
+        </mat-table>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ssi-footer></ssi-footer>

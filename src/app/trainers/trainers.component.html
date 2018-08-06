@@ -1,0 +1,74 @@
+<ssi-header menuActive="programsso"></ssi-header>
+
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+  <div fxFlex>
+    <h1 id="trainerTitle">Capacitadores</h1>
+  </div>
+  <div fxFlex fxLayout="row">
+    <button id="btnCreate" mat-raised-button routerLink="/trainers/create" color="primary">
+      <span class="fa fa-floppy-o fa-lg"></span>
+      Agregar capacitador</button>
+  </div>
+
+  <div fxFlex>
+    <div>
+      <mat-table #table [dataSource]="trainers">
+        <ng-container matColumnDef="image">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let trainer">
+            <img matListAvatar height="200px" data-src="data:image/png;base64,{{trainer.image}}" alt={{trainer.name}}>
+           <!-- <mat-grid-tile-footer>
+              <h1 mat-line>{{trainer.name | uppercase}}</h1>
+            </mat-grid-tile-footer>-->
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
+          <mat-cell *matCellDef="let trainer">{{trainer.id}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+          <mat-cell *matCellDef="let trainer">{{trainer.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ci">
+          <mat-header-cell *matHeaderCellDef>C.I.</mat-header-cell>
+          <mat-cell *matCellDef="let trainer">{{trainer.ci}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="speciality">
+          <mat-header-cell *matHeaderCellDef>Especialidad.</mat-header-cell>
+          <mat-cell *matCellDef="let trainer">{{trainer.speciality}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="skillsDescriptions">
+          <mat-header-cell *matHeaderCellDef>Habilidades</mat-header-cell>
+          <mat-cell *matCellDef="let trainer">{{trainer.skillsDescriptions}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Accion">
+          <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
+          <mat-cell *matCellDef="let trainer">
+            <button id="btnDelete" mat-raised-button (click)="deleteTrainer(trainer)" color="warn">
+              <span class="fa fa-trash fa-lg"></span>
+              Eliminar
+            </button>
+            <button id="btnUpdate"  mat-raised-button routerLink="/trainers/update/{{trainer.id}}" color="primary">
+              <span class="fa fa-edit fa-lg"></span>
+              Modificar
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>
+
+<ssi-footer></ssi-footer>

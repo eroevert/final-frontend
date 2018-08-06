@@ -1,0 +1,56 @@
+<ssi-header menuActive="equipament"></ssi-header>
+
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+  <div fxFlex="100%">
+    <h1>Lista de Equipamientos</h1>
+  </div>
+  <mat-divider></mat-divider>
+  <div fxFlex>
+    <button id="crearEquipment" mat-button routerLink="/equipments/create" color="primary"><span
+      class="fa fa-chevron-right fa-lg"></span>
+      Crear nuevo equipamiento
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="container"
+       fxLayout="row"
+       fxFlex="100%"
+       fxLayoutGap="10px">
+    <div fxFlex="100%">
+      <div fxFlex="100%">
+        <mat-table #table [dataSource]="equipments">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">{{equipment.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">{{equipment.type}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>Descripcion</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">{{equipment.description}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">
+              <a mat-button color="primary" [routerLink]="['detail', equipment.id]">Ver</a> |
+              <a mat-button color="warn" [routerLink]="['update', equipment.id]"> Modificar</a> |
+              <a mat-button color="primary"[routerLink]="['kardex', equipment.id]"> Ver Kardex</a> |
+              <a mat-button color="warn" (click)="deleteEquipment(equipment)" [routerLink]="['equipments']"> Eliminar</a> |
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </div>
+</div>
+<ssi-footer></ssi-footer>

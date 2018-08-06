@@ -1,0 +1,73 @@
+<ssi-header menuActive="equipament"></ssi-header>
+
+<div class="container"
+     fxLayoutGap="10px">
+  <div fxFlex="100%">
+    <h1>Crear nuevo Kardex</h1>
+  </div>
+  <mat-divider></mat-divider>
+  <div fxFlex>
+    <button mat-raised-button routerLink="/kardex" color="primary">
+      <span class="fa fa-arrow-left fa-lg"></span> Atras</button>
+  </div>
+  <mat-divider></mat-divider>
+  <div fxFlex>
+    <form novalidate [formGroup]="kardexForm" (ngSubmit)="onSubmit()" id="form">
+      <p>
+        <mat-form-field  dividerColor="{{(kardexForm.get('idEquipament').hasError('required') && kardexForm.get('idEquipament').touched) ? 'warn' : 'primary'}}">
+          <mat-select formControlName="idEquipament" placeholder="Seleccione tipo">
+            <mat-option *ngFor="let dato of equipments" [value]="dato.id">
+              {{ dato.name }}
+            </mat-option>
+          </mat-select>
+          <mat-hint>
+              <span [hidden]="!(kardexForm.get('idEquipament').hasError('required') && kardexForm.get('idEquipament').touched)">
+                El tipo es requerido</span>
+          </mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field fxFlex="50%">
+          <input matInput [matDatepicker]="picker" formControlName="dateKardex" placeholder="Fecha de Ingreso"  required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-input-container fxFlex="30%" class="half-width" dividerColor="{{(kardexForm.get('entryKardex').hasError('required') && kardexForm.get('entryKardex').touched) ? 'warn' : 'primary'}}">
+          <input matInput formControlName="entryKardex"  placeholder="Cant. ingreso" type="number" required>
+          <mat-hint>
+                <span [hidden]="!(kardexForm.get('entryKardex').hasError('required') && kardexForm.get('entryKardex').touched)">
+                  Cant. Ingreso requerido</span>
+          </mat-hint>
+        </mat-input-container>
+      </p>
+      <!---->
+      <p>
+        <mat-input-container fxFlex="30%" class="half-width" dividerColor="{{(kardexForm.get('outlayKardex').hasError('required') && kardexForm.get('outlayKardex').touched) ? 'warn' : 'primary'}}">
+          <input matInput formControlName="outlayKardex"  placeholder="0 de Inicio" type="number" required>
+          <mat-hint>
+                <span [hidden]="!(kardexForm.get('outlayKardex').hasError('required') && kardexForm.get('outlayKardex').touched)">
+                  Cant. despachada requerido</span>
+          </mat-hint>
+        </mat-input-container>
+      </p>
+      <p>
+        <mat-input-container fxFlex="30%" class="half-width" dividerColor="{{(kardexForm.get('balanceKardex').hasError('required')&& kardexForm.get('balanceKardex').touched) ? 'warn' : 'primary'}}">
+          <input matInput formControlName="balanceKardex"  placeholder="Saldo" type="number" required>
+          <mat-hint>
+                <span [hidden]="!(kardexForm.get('balanceKardex').hasError('required') && kardexForm.get('balanceKardex').touched)">
+                  Saldo es requerido</span>
+          </mat-hint>
+        </mat-input-container>
+      </p>
+      <button type="submit"  mat-raised-button color="primary" [disabled]="kardexForm.invalid">Enviar</button>
+
+    </form>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+
+
+<ssi-footer></ssi-footer>
+

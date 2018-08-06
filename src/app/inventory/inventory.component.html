@@ -1,0 +1,74 @@
+<ssi-header menuActive="equipament"></ssi-header>
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+  <mat-divider></mat-divider>
+  <div fxFlex>
+    <button mat-button routerLink="/home" color="primary"><span
+      class="fa fa-chevron-right fa-lg"></span>
+      Aceptar
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="container"
+       fxLayout="row"
+       fxLayoutGap="10px">
+    <div fxFlex="100%">
+      <mat-card fxFlex="100%">
+        <mat-card-header>
+          <img mat-card-avatar src="../../assets/images/ssi.png" width="250px"/>
+          <mat-card-title>EMPRESA CONSTRUCTORA "G & D"</mat-card-title>
+          <mat-card-subtitle>Departamento de inventarios</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content align="center"><h1 aling="center">REPORTE DE ESTADO DE EQUIPAMIENTOS DE H.S.I</h1></mat-card-content>
+        <mat-card-title-group align="left">A LA FECHA: </mat-card-title-group>
+      </mat-card >
+      <div>
+        <mat-table #table [dataSource]="inventories">
+
+          <ng-container matColumnDef="personal">
+            <mat-header-cell *matHeaderCellDef>Cod. Personal</mat-header-cell>
+            <mat-cell *matCellDef="let inventory">{{inventory.idPersonal}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="equipment">
+            <mat-header-cell *matHeaderCellDef>Cod. Equip</mat-header-cell>
+            <mat-cell *matCellDef="let inventory">{{inventory.idEquipament}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell *matCellDef="let inventory">{{inventory.status}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="active">
+            <mat-header-cell *matHeaderCellDef>Activo</mat-header-cell>
+            <mat-cell *matCellDef="let inventory">{{changeActive(inventory.active)}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="asisgmentDate">
+            <mat-header-cell *matHeaderCellDef>Fecha de Asignacion</mat-header-cell>
+            <mat-cell *matCellDef="let inventory">{{inventory.dateAsignament | date}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="accion">
+            <mat-header-cell *matHeaderCellDef> Accion </mat-header-cell>
+            <mat-cell *matCellDef="let inventory">
+              <button mat-raised-button routerLink="/inventory/update/{{inventory.id}}" color="primary">
+                Editar
+              </button>
+              <button mat-raised-button (click)="onSelect(inventory)" color="primary">
+                Ver
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ssi-footer></ssi-footer>
